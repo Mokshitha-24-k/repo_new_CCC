@@ -1,0 +1,120 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f7f7f7;
+  }
+  
+  .login-card {
+    display: flex;
+    width: 900px;
+    background: white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  
+  .image{
+    
+    flex-direction: column;
+    flex: 1;
+  overflow: hidden;
+  width:100% ;
+  transform: scale(1);
+    
+  }
+  .image img {
+    width: 100%;        
+    height: 100%;       
+    object-fit: contain; 
+    display: block;   
+  }
+  
+  .login-main {
+    flex: 1;
+    width:100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .login-main h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .login-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .options {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .login-button {
+    padding: 10px;
+    background-color: #5ba3f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .create-account {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .github-btn{
+  
+    margin: 10px;
+    color:black;
+  }
+
+  .linkedin-btn{
+    margin: 10px;
+  }
+  .google-btn{
+    margin: 10px;
+  }
+
+  .password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center; 
+  }
+  
+  .password-input-wrapper input {
+    width: 100%;
+    padding-right: 40px; 
+    height: 40px; 
+    box-sizing: border-box;
+  }
+  
+  .eye-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: #555;
+  }
+  
+  
+  
+
+ 
