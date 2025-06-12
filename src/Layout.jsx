@@ -1,13 +1,14 @@
 import React from 'react';
 import SidebarLayout from './Components/Sidebar/SidebarLayout';
-import NavLayout from './Components/Navbar/NavLayout';
+// import NavLayout from './Components/Navbar/NavLayout';
+import NavMain from './Components/Navbar/NavMain';
 import FilterBarLayout from './Components/FilterBar/FilterBarLayout';
 import BodyLayout from './Components/Body/BodyLayout';
 function Layout() {
   
   return (
     <div className="app-layout">
-      <NavLayout />
+      <NavMain />
       
 
       <div style={{ display: 'flex', marginTop: '64px', height: 'calc(100vh - 64px)' }}>

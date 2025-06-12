@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 import BodyMain from './BodyMain'
 import CardMain from '../CardMain';

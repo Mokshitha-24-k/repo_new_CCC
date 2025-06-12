@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -10,21 +10,20 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-// import Buttons from "../Button";
 import Dropdown from "../Dropdown";
 
-
-
-
-const NavMain = () => {
+const NavMain = ({
+  title = "Skill Censui. Ai",
+  showHostDropdown = true,
+  showJoinDropdown = true,
+}) => {
   const [hostOption, setHostOption] = useState("");
   const [joinOption, setJoinOption] = useState("");
-
-  const navigate = useNavigate();
-
-  
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,10 +34,24 @@ const NavMain = () => {
     if (option === "Login") navigate("/login");
     else if (option === "Signup") navigate("/signup");
     else if (option === "Settings") navigate("/settings");
+    else if (option === "DashBoard") navigate("/DashBoardLayout");
+    else if (option === "Logout") navigate("/");
   };
 
-  return (
+  // Set options based on location
+  let profileOptions = [];
 
+  if (location.pathname === "/") {
+    profileOptions = ["Settings", "Login", "Signup", "DashBoard"];
+  } else if (location.pathname === "/Layout") {
+    profileOptions = ["Settings", "DashBoard", "Logout"];
+  } else if (location.pathname === "/DashBoardLayout") {
+    profileOptions = ["Settings", "Logout"];
+  } else {
+    profileOptions = ["Settings"];
+  }
+
+  return (
     <AppBar
       position="fixed"
       sx={{
@@ -55,7 +68,6 @@ const NavMain = () => {
             justifyContent: "space-between",
           }}
         >
-          
           <Box sx={{ display: "flex", alignItems: "center", gap: 20 }}>
             <Typography
               sx={{
@@ -74,49 +86,42 @@ const NavMain = () => {
                 },
               }}
             >
-              Skill Censui. Ai
+              {title}
             </Typography>
 
-            <Dropdown
-              label="Host a Contest"
-              value={hostOption}
-              onChange={(e) => setHostOption(e.target.value)}
-              options={["Hackathon", "Workshop", "Seminar"]}
-              outlined={false}
-            />
+            {showHostDropdown && (
+              <Dropdown
+                label="Host a Contest"
+                value={hostOption}
+                onChange={(e) => setHostOption(e.target.value)}
+                options={["Hackathon", "Workshop", "Seminar"]}
+                outlined={false}
+              />
+            )}
 
-            <Dropdown
-              label="Join a Contest"
-              value={joinOption}
-              onChange={(e) => setJoinOption(e.target.value)}
-              options={["Hackathon", "Quiz", "Design"]}
-              outlined={false}
-            />
+            {showJoinDropdown && (
+              <Dropdown
+                label="Join a Contest"
+                value={joinOption}
+                onChange={(e) => setJoinOption(e.target.value)}
+                options={["Hackathon", "Quiz", "Design"]}
+                outlined={false}
+              />
+            )}
           </Box>
 
-         
           <Box sx={{ mr: 3 }}>
             <IconButton onClick={handleProfileClick}>
-              <Avatar
-                alt="Profile"
-                src="" 
-                sx={{ width: 36, height: 36 }}
-              />
+              <Avatar alt="Profile" src="" sx={{ width: 36, height: 36 }} />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
               open={open}
               onClose={() => handleProfileClose(null)}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
             >
-              {["Settings", "Login", "Signup"].map((option) => (
+              {profileOptions.map((option) => (
                 <MenuItem key={option} onClick={() => handleProfileClose(option)}>
                   {option}
                 </MenuItem>
@@ -126,8 +131,6 @@ const NavMain = () => {
         </Box>
       </Toolbar>
     </AppBar>
-   
-    
   );
 };
 
