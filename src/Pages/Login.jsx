@@ -48,7 +48,11 @@ const togglePassword = () => {
             className="login-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+           
+      
           />
+          
+          {/* <h5> {username} </h5> */}
          <div className="password-input-wrapper">
          <input
          type={showPassword ? "text" : "password"}
@@ -57,10 +61,13 @@ const togglePassword = () => {
          value={password}
          onChange={(e) => setPassword(e.target.value)}
          />
+         
         <span className="eye-icon" onClick={togglePassword}>
         {showPassword ? <FaEye /> : <FaEyeSlash />}
         </span>
         </div>
+        {/* <br></br>
+         <h5> {password}</h5> */}
 
           <div className="options">
             <label>
