@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState } from "react";
 import { Card, Typography, Grid, CardContent, Box } from "@mui/material";
 import {
   CircularProgressbarWithChildren,
@@ -6,7 +6,7 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import StatCard from "./StatCard";
-import { metricsCard1, metricsCard2 } from "./MetricsData";
+import {metricsCard1 , metricsCard2} from "./MetricsData";
 
 const PerformanceSummary = () => {
   const percentage = 50;
@@ -19,6 +19,7 @@ const PerformanceSummary = () => {
             sx={{
               width: "400px",
               transition: "transform 0.3s, box-shadow 0.3s",
+              alignItems:"center",
               "&:hover": {
                 transform: "scale(1.03)",
                 boxShadow: 6,
@@ -73,7 +74,7 @@ const PerformanceSummary = () => {
               <Typography variant="h6" gutterBottom>
                 Courses Overview
               </Typography>
-              <StatCard data={metricsCard1} />
+              <StatCard cardType="metricsCard1" />
             </CardContent>
           </Card>
         </Grid>
@@ -93,7 +94,7 @@ const PerformanceSummary = () => {
               <Typography variant="h6" gutterBottom>
                 Learning Activities
               </Typography>
-              <StatCard data={metricsCard2} />
+              <StatCard cardType="metricsCard2" />
             </CardContent>
           </Card>
         </Grid>

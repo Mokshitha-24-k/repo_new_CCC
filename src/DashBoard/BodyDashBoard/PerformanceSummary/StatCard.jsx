@@ -1,15 +1,58 @@
-import React from "react";
-import { Box, Typography, Grid, Avatar, CircularProgress } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Typography,
+  Grid,
+  Avatar,
+  CircularProgress,
+} from "@mui/material";
+import {
+  FaChalkboardTeacher,
+  FaClipboardCheck,
+  FaBook,
+  FaHourglassHalf,
+  FaCertificate,
+  FaLaptopCode,
+} from "react-icons/fa";
 
-const StatCard = ({ data }) => {
+
+const iconMap = {
+  FaChalkboardTeacher: <FaChalkboardTeacher />,
+  FaClipboardCheck: <FaClipboardCheck />,
+  FaBook: <FaBook />,
+  FaHourglassHalf: <FaHourglassHalf />,
+  FaCertificate: <FaCertificate />,
+  FaLaptopCode: <FaLaptopCode />,
+};
+
+const StatCard = ({ cardType }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("/Data/MetricsData.json")
+      .then((res) => res.json())
+      .then((json) => {
+        const selected = json[cardType] || [];
+        const withIcons = selected.map((item) => ({
+          ...item,
+          icon: iconMap[item.icon] || null,
+        }));
+        console.log("Fetched data:", withIcons);
+
+        setData(withIcons);
+
+      })
+      
+      
+      .catch((err) => console.error("Fetch error:", err));
+  }, [cardType]);
+
   return (
     <Box sx={{ width: "100%" }}>
-      <Grid container spacing={2} direction={"column"}>
+      <Grid container spacing={2} direction="column">
         {data.map((item, index) => {
-          const progress =
-            item.maxValue !== undefined
-              ? (item.value / item.maxValue) * 100
-              : item.value;
+          const { value, maxValue, bgColor, color, icon, title, text } = item;
+          const progress = maxValue ? (value / maxValue) * 100 : value;
 
           return (
             <Grid
@@ -19,23 +62,16 @@ const StatCard = ({ data }) => {
               key={index}
               sx={{ display: "flex", alignItems: "center", gap: 2 }}
             >
-              <Avatar
-                sx={{
-                  bgcolor: item.bgColor,
-                  color: item.color,
-                  width: 40,
-                  height: 40,
-                }}
-              >
-                {item.icon} {/* FIX: Now rendering JSX directly */}
+              <Avatar sx={{ bgcolor: bgColor, color: color, width: 40, height: 40 }}>
+                {icon}
               </Avatar>
 
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="body2" color="textSecondary">
-                  {item.title}
+                  {title}
                 </Typography>
                 <Typography variant="subtitle1" fontWeight="bold">
-                  {item.text}
+                  {text}
                 </Typography>
               </Box>
 
@@ -52,7 +88,7 @@ const StatCard = ({ data }) => {
                   value={progress}
                   size={36}
                   thickness={4}
-                  sx={{ color: item.color }}
+                  sx={{ color: color }}
                 />
               </Box>
             </Grid>
